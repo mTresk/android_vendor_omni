@@ -248,7 +248,7 @@ ifeq ($(TARGET_KERNEL_CLANG_COMPILE),true)
         KERNEL_CLANG_VERSION := $(shell find $(BUILD_TOP)/prebuilts/clang/host/$(HOST_OS)-x86/ -name AndroidVersion.txt -exec grep -l $(TARGET_KERNEL_CLANG_VERSION) "{}" \; | sed -e 's|/AndroidVersion.txt$$||g;s|^.*/||g')
     else
         # Only set the latest version of clang if TARGET_KERNEL_CLANG_VERSION hasn't been set by the device config
-        KERNEL_CLANG_VERSION := $(shell ls -d $(ANDROID_BUILD_TOP)/prebuilts/clang/host/$(HOST_OS)-x86/clang-* | xargs -n 1 basename | tail -1)
+        KERNEL_CLANG_VERSION := $(shell ls -d $(BUILD_TOP)/prebuilts/clang/host/$(HOST_OS)-x86/clang-* | xargs -n 1 basename | tail -1)
     endif
     TARGET_KERNEL_CLANG_PATH ?= $(BUILD_TOP)/prebuilts/clang/host/$(HOST_OS)-x86/$(KERNEL_CLANG_VERSION)/bin
     KBUILD_COMPILER_STRING := $(shell $(TARGET_KERNEL_CLANG_PATH)/clang --version | head -n 1 | perl -pe 's/\(http.*?\)//gs' | sed -e 's/  */ /g')
